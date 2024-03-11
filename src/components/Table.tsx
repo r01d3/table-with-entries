@@ -1,19 +1,19 @@
+import React from "react";
 import { Table as AntTable } from "antd";
-import { DataType, TableType } from "../utils/types";
+import { DataType } from "../utils/types";
 import { useAPIContext } from "../context/APIContext";
 import { getColumns } from "../utils/configTable";
 
-const Table: React.FC<TableType> = ({ className }: TableType) => {
+const Table: React.FC = () => {
   const { data } = useAPIContext();
   return (
     <AntTable<DataType>
-      columns={getColumns()}
+      columns={getColumns(data)}
       dataSource={data}
       rowKey={(record) => record.username}
       pagination={{ pageSize: 10 }}
       onChange={(filters) => filters}
       bordered
-      className={className}
     />
   );
 };

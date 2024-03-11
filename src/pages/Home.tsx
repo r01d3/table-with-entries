@@ -18,7 +18,7 @@ const Home: React.FC = () => {
           Add new entry
         </Button>
       </Flex>
-      <Table className="home-container__table" />
+      <Table />
     </div>
   );
 };

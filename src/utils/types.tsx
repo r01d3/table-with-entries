@@ -26,6 +26,4 @@ type APIContextProviderType = {
   children: ReactNode;
 };
 
-type TableType = { className: string };
-
-export type { DataType, APIContextType, APIContextProviderType, TableType };
+export type { DataType, APIContextType, APIContextProviderType };
