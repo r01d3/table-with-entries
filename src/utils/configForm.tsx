@@ -1,5 +1,5 @@
 import { DataType } from "./types";
-//import { namePattern, phonePattern, usernamePattern } from "./validations";
+import { namePattern, phonePattern, usernamePattern } from "./validations";
 
 const initalEntry: DataType = {
   id: "",
@@ -10,7 +10,7 @@ const initalEntry: DataType = {
   dateOfBirth: "",
   address: "",
   city: "",
-  agrrement: "No",
+  agreement: "No",
   country: "",
   phone: "",
   details: "",
@@ -37,7 +37,7 @@ const getUsernameFieldRules = [
   { whitespace: true },
   { min: 4, max: 80 },
   {
-    // pattern: usernamePattern,
+    pattern: usernamePattern,
     message: "Username should be match with 'a-zA-z0-9!@#' ",
   },
 ];
@@ -50,7 +50,7 @@ const getFirstNameFieldRules = [
   { whitespace: true },
   { min: 2, max: 80 },
   {
-    //  pattern: namePattern,
+    pattern: namePattern,
     message: "FirstName should contains lowercase/uppercase letters",
   },
 ];
@@ -63,7 +63,7 @@ const getLastNameFieldRules = [
   { whitespace: true },
   { min: 2, max: 80 },
   {
-    //   pattern: namePattern,
+    pattern: namePattern,
     message: "LastName should contains lowercase/uppercase letters",
   },
 ];
@@ -76,7 +76,7 @@ const getDateOfBirthFieldRules = {
 
 const getPhoneFieldRules = [
   {
-    //  pattern: phonePattern,
+    pattern: phonePattern,
     message: "Phone add a valid phone number",
   },
 ];

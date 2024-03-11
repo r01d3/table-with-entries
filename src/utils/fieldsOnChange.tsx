@@ -70,7 +70,7 @@ const agreementOnChnage = (
 ) => {
   setNewEntry({
     ...newEntry,
-    agrrement: e.target.checked ? "Yes" : "No",
+    agreement: e.target.checked ? "Yes" : "No",
   });
 };
 const adressOnChange = (

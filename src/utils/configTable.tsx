@@ -65,9 +65,9 @@ const getColumns = (
       sorter: (a, b) => a.city.localeCompare(b.city),
     },
     {
-      title: "Agrrement",
-      dataIndex: "agrrement",
-      key: "agrrement",
+      title: "Agreement",
+      dataIndex: "agreement",
+      key: "agreement",
     },
     {
       title: "Country",

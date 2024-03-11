@@ -9,7 +9,7 @@ type DataType = {
   dateOfBirth: string;
   address: string;
   city: string;
-  agrrement: string;
+  agreement: string;
   country: string;
   phone: string;
   details: string;
@@ -26,4 +26,12 @@ type APIContextProviderType = {
   children: ReactNode;
 };
 
-export type { DataType, APIContextType, APIContextProviderType };
+type HeaderFormType = {
+  title: string;
+};
+export type {
+  DataType,
+  APIContextType,
+  APIContextProviderType,
+  HeaderFormType,
+};

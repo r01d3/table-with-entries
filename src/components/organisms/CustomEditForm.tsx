@@ -9,10 +9,11 @@ import {
   Switch,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import dayjs from "dayjs";
 import { useState } from "react";
 import { useAPIContext } from "../../context/APIContext";
 import { DataType } from "../../utils/types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { countryOptions, disabledDate } from "../../utils/constants";
 import {
   configForm,
@@ -20,7 +21,6 @@ import {
   getLastNameFieldRules,
   getPhoneFieldRules,
   getUsernameFieldRules,
-  initalEntry,
 } from "../../utils/configForm";
 
 import {
@@ -40,17 +40,21 @@ import {
 } from "../../utils/fieldsOnChange";
 import { HeaderForm } from ".";
 
-const CustomForm: React.FC = () => {
+const CustomEditForm: React.FC = () => {
   const { data, setData } = useAPIContext();
+  const { id } = useParams();
   const navigator = useNavigate();
 
-  const [newEntry, setNewEntry] = useState<DataType>(initalEntry);
+  const getEntryforEdit = data.filter((d) => d.id === id);
+  const initalEntry = getEntryforEdit[0];
+  const [updateEntry, setUpadateEntry] = useState<DataType>(initalEntry);
 
   const [male, setMale] = useState(false);
   const [female, setFemale] = useState(false);
 
-  const onFinish = () => {
-    setData([...data, newEntry]);
+  const onFinish = (_: DataType) => {
+    const updateData = data.filter((d) => d.id !== initalEntry.id);
+    setData([...updateData, updateEntry]);
     navigator("/");
   };
   const onFinishFailed = (errorInfo: object) => {
@@ -61,8 +65,8 @@ const CustomForm: React.FC = () => {
     navigator("/");
   };
   return (
-    <>
-      <HeaderForm title="Add new entry" />
+    <div>
+      <HeaderForm title="Edit entry" />
       <Form
         className="new-entry"
         name="basic"
@@ -74,68 +78,81 @@ const CustomForm: React.FC = () => {
         <Form.Item
           label="Username"
           name="username"
+          initialValue={updateEntry?.username}
           rules={getUsernameFieldRules}
           hasFeedback
         >
-          <Input onChange={(e) => usernameOnChange(e, setNewEntry, newEntry)} />
+          <Input
+            onChange={(e) => usernameOnChange(e, setUpadateEntry, updateEntry)}
+          />
         </Form.Item>
 
         <Form.Item
           label="FristName"
           name="firstName"
+          initialValue={updateEntry?.fisrtName}
           rules={getFirstNameFieldRules}
           hasFeedback
         >
           <Input
-            onChange={(e) => firstNameOnChange(e, setNewEntry, newEntry)}
+            onChange={(e) => firstNameOnChange(e, setUpadateEntry, updateEntry)}
           />
         </Form.Item>
         <Form.Item
           label="LastName"
           name="lastName"
+          initialValue={updateEntry?.lastName}
           rules={getLastNameFieldRules}
           hasFeedback
         >
-          <Input onChange={(e) => lastNameOnChange(e, setNewEntry, newEntry)} />
+          <Input
+            onChange={(e) => lastNameOnChange(e, setUpadateEntry, updateEntry)}
+          />
         </Form.Item>
 
-        <Form.Item label="Gender">
+        <Form.Item label="Gender" initialValue={updateEntry?.gender}>
           Male
           <Switch
-            onChange={(e) => maleOnChange(e, setMale, setNewEntry, newEntry)}
+            onChange={(e) =>
+              maleOnChange(e, setMale, setUpadateEntry, updateEntry)
+            }
             disabled={female}
+            defaultValue={initalEntry?.gender === "male"}
           />
-          Female{" "}
+          Female
           <Switch
             onChange={(e) =>
-              femaleOnChange(e, setFemale, setNewEntry, newEntry)
+              femaleOnChange(e, setFemale, setUpadateEntry, updateEntry)
             }
             disabled={male}
+            defaultValue={initalEntry?.gender === "female"}
           />
         </Form.Item>
 
-        <Form.Item
-          label="Date of birth"
-          rules={[
-            { type: "object", required: true, message: "Please select a date" },
-          ]}
-          hasFeedback
-        >
+        <Form.Item label="Date of birth">
           <DatePicker
             onChange={(_: object, dataString: string) =>
-              datePickerOnChange(_, dataString, setNewEntry, newEntry)
+              datePickerOnChange(_, dataString, setUpadateEntry, updateEntry)
             }
             format="YYYY-MM-DD"
-            allowClear={false}
+            defaultValue={dayjs(updateEntry?.dateOfBirth)}
             disabledDate={disabledDate}
           />
         </Form.Item>
 
-        <Form.Item label="Address" name="address">
-          <Input onChange={(e) => adressOnChange(e, setNewEntry, newEntry)} />
+        <Form.Item
+          label="Address"
+          name="address"
+          initialValue={updateEntry?.address}
+        >
+          <Input
+            onChange={(e) => adressOnChange(e, setUpadateEntry, updateEntry)}
+          />
         </Form.Item>
-        <Form.Item label="City" name="city">
-          <Input onChange={(e) => cityOnChange(e, setNewEntry, newEntry)} />
+        <Form.Item label="City" name="city" initialValue={updateEntry?.city}>
+          <Input
+            onChange={(e) => cityOnChange(e, setUpadateEntry, updateEntry)}
+          />
         </Form.Item>
         <Form.Item
           name="agreement"
@@ -146,19 +163,25 @@ const CustomForm: React.FC = () => {
           }}
         >
           <Checkbox
-            onChange={(e) => agreementOnChnage(e, setNewEntry, newEntry)}
+            onChange={(e) => agreementOnChnage(e, setUpadateEntry, updateEntry)}
+            defaultChecked={updateEntry?.agreement === "Yes" ? true : false}
           >
-            Agrrement
+            Agreement
           </Checkbox>
         </Form.Item>
-        <Form.Item label="Country" name="country">
+        <Form.Item
+          label="Country"
+          name="country"
+          initialValue={updateEntry?.country}
+        >
           <Select
             style={{
               width: "45%",
             }}
             placeholder="select one country"
+            defaultValue="Select your contry"
             onChange={(value: string) =>
-              countryOnChange(value, setNewEntry, newEntry)
+              countryOnChange(value, setUpadateEntry, updateEntry)
             }
             optionLabelProp="label"
             options={countryOptions}
@@ -168,19 +191,30 @@ const CustomForm: React.FC = () => {
         <Form.Item
           label="Phone"
           name="phone"
-          hasFeedback
+          initialValue={updateEntry?.phone}
           rules={getPhoneFieldRules}
+          hasFeedback
         >
-          <Input onChange={(e) => phoneOnChange(e, setNewEntry, newEntry)} />
-        </Form.Item>
-        <Form.Item label="Details" name="details">
-          <TextArea
-            onChange={(e) => detalisOnChange(e, setNewEntry, newEntry)}
+          <Input
+            onChange={(e) => phoneOnChange(e, setUpadateEntry, updateEntry)}
           />
         </Form.Item>
-        <Form.Item label="Hobbies" name="hobbies">
+        <Form.Item
+          label="Details"
+          name="details"
+          initialValue={updateEntry?.details}
+        >
           <TextArea
-            onChange={(e) => hobbiesOnChange(e, setNewEntry, newEntry)}
+            onChange={(e) => detalisOnChange(e, setUpadateEntry, updateEntry)}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Hobbies"
+          name="hobbies"
+          initialValue={updateEntry?.hobbies}
+        >
+          <TextArea
+            onChange={(e) => hobbiesOnChange(e, setUpadateEntry, updateEntry)}
           />
         </Form.Item>
         <Form.Item
@@ -199,9 +233,8 @@ const CustomForm: React.FC = () => {
           </Space>
         </Form.Item>
       </Form>
-      ;
-    </>
+    </div>
   );
 };
 
-export default CustomForm;
+export default CustomEditForm;
