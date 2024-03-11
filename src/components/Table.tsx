@@ -5,10 +5,10 @@ import { useAPIContext } from "../context/APIContext";
 import { getColumns } from "../utils/configTable";
 
 const Table: React.FC = () => {
-  const { data } = useAPIContext();
+  const { data, setData } = useAPIContext();
   return (
     <AntTable<DataType>
-      columns={getColumns(data)}
+      columns={getColumns(data, setData)}
       dataSource={data}
       rowKey={(record) => record.username}
       pagination={{ pageSize: 10 }}

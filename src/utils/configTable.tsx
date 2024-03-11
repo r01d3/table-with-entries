@@ -1,4 +1,6 @@
+import { Popconfirm } from "antd";
 import { ColumnsType } from "antd/es/table";
+import { Link } from "react-router-dom";
 import { DataType } from "./types";
 import {
   getCityFiltersOptionsValue,
@@ -9,7 +11,18 @@ import {
   getUsernameFiltersOptionsValue,
 } from "./filters";
 
-const getColumns = (data: DataType[]) => {
+const handleDelete = (
+  id: string,
+  data: DataType[],
+  setData: React.Dispatch<React.SetStateAction<DataType[]>>
+) => {
+  const newData = data.filter((item) => item.id !== id);
+  setData(newData);
+};
+const getColumns = (
+  data: DataType[],
+  setData: React.Dispatch<React.SetStateAction<DataType[]>>
+) => {
   const columns: ColumnsType<DataType> = [
     {
       title: "Index",
@@ -87,11 +100,18 @@ const getColumns = (data: DataType[]) => {
       title: "Actions",
       dataIndex: "actions",
       key: "actions",
-      render: () => (
+      render: (_, record) => (
         <span>
-          Edit
+          <Link to={`/edit/${record.id}`}>Edit</Link>
           <span style={{ margin: "0 8px" }}>|</span>
-          Delete
+          {data.length >= 1 ? (
+            <Popconfirm
+              title="Sure to delete?"
+              onConfirm={() => handleDelete(record.id, data, setData)}
+            >
+              <a>Delete</a>
+            </Popconfirm>
+          ) : null}
         </span>
       ),
     },
