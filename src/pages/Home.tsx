@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Flex } from "antd";
 import { useNavigate } from "react-router-dom";
-import Table from "../components/Table";
+import { Table } from "../components";
 import "./Home.scss";
 
 const Home: React.FC = () => {

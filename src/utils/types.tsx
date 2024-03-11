@@ -9,7 +9,7 @@ type DataType = {
   dateOfBirth: string;
   address: string;
   city: string;
-  newsletter: string;
+  agrrement: string;
   country: string;
   phone: string;
   details: string;
