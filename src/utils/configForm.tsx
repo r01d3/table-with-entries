@@ -6,7 +6,7 @@ const initalEntry: DataType = {
   username: "",
   fisrtName: "",
   lastName: "",
-  gender: "",
+  gender: "male",
   dateOfBirth: "",
   address: "",
   city: "",

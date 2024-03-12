@@ -5,7 +5,7 @@ type DataType = {
   username: string;
   fisrtName: string;
   lastName: string;
-  gender: string;
+  gender: "male" | "female";
   dateOfBirth: string | string[];
   address: string;
   city: string;
