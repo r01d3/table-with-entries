@@ -57,11 +57,11 @@ const lastNameOnChange = (
 
 const datePickerOnChange = (
   _: object,
-  dateString: string,
+  dateString: string | string[],
   setNewEntry: React.Dispatch<React.SetStateAction<DataType>>,
   newEntry: DataType
 ) => {
-  setNewEntry({ ...newEntry, dateOfBirth: dateString });
+  setNewEntry({ ...newEntry, dateOfBirth: dateString.toString() });
 };
 const agreementOnChnage = (
   e: { target: { checked: boolean } },
