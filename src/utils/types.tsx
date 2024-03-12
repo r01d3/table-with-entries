@@ -29,9 +29,13 @@ type APIContextProviderType = {
 type HeaderFormType = {
   title: string;
 };
+
+type eType = { target: { value: string } };
+
 export type {
   DataType,
   APIContextType,
   APIContextProviderType,
   HeaderFormType,
+  eType,
 };

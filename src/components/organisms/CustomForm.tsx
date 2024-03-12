@@ -11,7 +11,7 @@ import {
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { useAPIContext } from "../../context/APIContext";
-import { DataType } from "../../utils/types";
+import { DataType, eType } from "../../utils/types";
 import { useNavigate } from "react-router-dom";
 import {
   countryOptions,
@@ -83,7 +83,9 @@ const CustomForm: React.FC = () => {
           rules={getUsernameFieldRules}
           hasFeedback
         >
-          <Input onChange={(e) => usernameOnChange(e, setNewEntry, newEntry)} />
+          <Input
+            onChange={(e: eType) => usernameOnChange(e, setNewEntry, newEntry)}
+          />
         </Form.Item>
 
         <Form.Item
@@ -93,7 +95,7 @@ const CustomForm: React.FC = () => {
           hasFeedback
         >
           <Input
-            onChange={(e) => firstNameOnChange(e, setNewEntry, newEntry)}
+            onChange={(e: eType) => firstNameOnChange(e, setNewEntry, newEntry)}
           />
         </Form.Item>
         <Form.Item
@@ -102,20 +104,24 @@ const CustomForm: React.FC = () => {
           rules={getLastNameFieldRules}
           hasFeedback
         >
-          <Input onChange={(e) => lastNameOnChange(e, setNewEntry, newEntry)} />
+          <Input
+            onChange={(e: eType) => lastNameOnChange(e, setNewEntry, newEntry)}
+          />
         </Form.Item>
 
         <Form.Item label={customFormText.label.gender}>
           <Space>
             {customFormText.genders.male}
             <Switch
-              onChange={(e) => maleOnChange(e, setMale, setNewEntry, newEntry)}
+              onChange={(event: boolean) =>
+                maleOnChange(event, setMale, setNewEntry, newEntry)
+              }
               disabled={female}
             />
             {customFormText.genders.female}
             <Switch
-              onChange={(e) =>
-                femaleOnChange(e, setFemale, setNewEntry, newEntry)
+              onChange={(event: boolean) =>
+                femaleOnChange(event, setFemale, setNewEntry, newEntry)
               }
               disabled={male}
             />
@@ -140,10 +146,14 @@ const CustomForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item label={customFormText.label.address} name="address">
-          <Input onChange={(e) => adressOnChange(e, setNewEntry, newEntry)} />
+          <Input
+            onChange={(e: eType) => adressOnChange(e, setNewEntry, newEntry)}
+          />
         </Form.Item>
         <Form.Item label={customFormText.label.city} name="city">
-          <Input onChange={(e) => cityOnChange(e, setNewEntry, newEntry)} />
+          <Input
+            onChange={(e: eType) => cityOnChange(e, setNewEntry, newEntry)}
+          />
         </Form.Item>
         <Form.Item
           name="agreement"
@@ -176,16 +186,18 @@ const CustomForm: React.FC = () => {
           hasFeedback
           rules={getPhoneFieldRules}
         >
-          <Input onChange={(e) => phoneOnChange(e, setNewEntry, newEntry)} />
+          <Input
+            onChange={(e: eType) => phoneOnChange(e, setNewEntry, newEntry)}
+          />
         </Form.Item>
         <Form.Item label={customFormText.label.details} name="details">
           <TextArea
-            onChange={(e) => detalisOnChange(e, setNewEntry, newEntry)}
+            onChange={(e: eType) => detalisOnChange(e, setNewEntry, newEntry)}
           />
         </Form.Item>
         <Form.Item label={customFormText.label.hobbies} name="hobbies">
           <TextArea
-            onChange={(e) => hobbiesOnChange(e, setNewEntry, newEntry)}
+            onChange={(e: eType) => hobbiesOnChange(e, setNewEntry, newEntry)}
           />
         </Form.Item>
         <Form.Item
