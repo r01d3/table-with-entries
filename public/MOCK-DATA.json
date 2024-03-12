@@ -41,4 +41,19 @@
     "phone":"+1 646-278-0526",
     "details":"",
     "hobbies": "traveling"
+},
+{
+    "id":"4",
+    "username": "Raf@01",
+    "fisrtName": "Rafael",
+    "lastName": "Nadal",
+    "gender": "mele",
+    "dateOfBirth": "1986-06-03",
+    "address": "Ctra. Cales de Mallorca s/n, Km 1,2",
+    "city": "Manacor",
+    "agreement":"Yes",
+    "country": "Spain",
+    "phone":"+34971171683",
+    "details":"",
+    "hobbies": "tenis"
 }]
