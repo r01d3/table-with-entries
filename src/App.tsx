@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { APIContextProvider } from "./context/APIContext";
 import { Home, AddEntry, EditEntry } from "./pages";
+import "./App.scss";
 
 const App: React.FC = () => {
   return (

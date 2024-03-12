@@ -13,7 +13,12 @@ import { useState } from "react";
 import { useAPIContext } from "../../context/APIContext";
 import { DataType } from "../../utils/types";
 import { useNavigate } from "react-router-dom";
-import { countryOptions, disabledDate } from "../../utils/constants";
+import {
+  countryOptions,
+  customFormText,
+  disabledDate,
+  isSubmitBtnDisabled,
+} from "../../utils/constants";
 import {
   configForm,
   getFirstNameFieldRules,
@@ -46,13 +51,14 @@ const CustomForm: React.FC = () => {
 
   const [newEntry, setNewEntry] = useState<DataType>(initalEntry);
 
-  const [male, setMale] = useState(false);
-  const [female, setFemale] = useState(false);
+  const [male, setMale] = useState<boolean>(false);
+  const [female, setFemale] = useState<boolean>(false);
 
   const onFinish = () => {
     setData([...data, newEntry]);
     navigator("/");
   };
+
   const onFinishFailed = (errorInfo: object) => {
     console.log("Failed:", errorInfo);
   };
@@ -60,11 +66,11 @@ const CustomForm: React.FC = () => {
   const onCancel = () => {
     navigator("/");
   };
+
   return (
     <>
-      <HeaderForm title="Add new entry" />
+      <HeaderForm title={customFormText.title.add} />
       <Form
-        className="new-entry"
         name="basic"
         {...configForm}
         onFinish={onFinish}
@@ -72,7 +78,7 @@ const CustomForm: React.FC = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Username"
+          label={customFormText.label.username}
           name="username"
           rules={getUsernameFieldRules}
           hasFeedback
@@ -81,7 +87,7 @@ const CustomForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item
-          label="FristName"
+          label={customFormText.label.firstName}
           name="firstName"
           rules={getFirstNameFieldRules}
           hasFeedback
@@ -91,7 +97,7 @@ const CustomForm: React.FC = () => {
           />
         </Form.Item>
         <Form.Item
-          label="LastName"
+          label={customFormText.label.lastName}
           name="lastName"
           rules={getLastNameFieldRules}
           hasFeedback
@@ -99,23 +105,25 @@ const CustomForm: React.FC = () => {
           <Input onChange={(e) => lastNameOnChange(e, setNewEntry, newEntry)} />
         </Form.Item>
 
-        <Form.Item label="Gender">
-          Male
-          <Switch
-            onChange={(e) => maleOnChange(e, setMale, setNewEntry, newEntry)}
-            disabled={female}
-          />
-          Female{" "}
-          <Switch
-            onChange={(e) =>
-              femaleOnChange(e, setFemale, setNewEntry, newEntry)
-            }
-            disabled={male}
-          />
+        <Form.Item label={customFormText.label.gender}>
+          <Space>
+            {customFormText.genders.male}
+            <Switch
+              onChange={(e) => maleOnChange(e, setMale, setNewEntry, newEntry)}
+              disabled={female}
+            />
+            {customFormText.genders.female}
+            <Switch
+              onChange={(e) =>
+                femaleOnChange(e, setFemale, setNewEntry, newEntry)
+              }
+              disabled={male}
+            />
+          </Space>
         </Form.Item>
 
         <Form.Item
-          label="Date of birth"
+          label={customFormText.label.dateOfBirth}
           rules={[
             { type: "object", required: true, message: "Please select a date" },
           ]}
@@ -131,10 +139,10 @@ const CustomForm: React.FC = () => {
           />
         </Form.Item>
 
-        <Form.Item label="Address" name="address">
+        <Form.Item label={customFormText.label.address} name="address">
           <Input onChange={(e) => adressOnChange(e, setNewEntry, newEntry)} />
         </Form.Item>
-        <Form.Item label="City" name="city">
+        <Form.Item label={customFormText.label.city} name="city">
           <Input onChange={(e) => cityOnChange(e, setNewEntry, newEntry)} />
         </Form.Item>
         <Form.Item
@@ -148,15 +156,12 @@ const CustomForm: React.FC = () => {
           <Checkbox
             onChange={(e) => agreementOnChnage(e, setNewEntry, newEntry)}
           >
-            Agrrement
+            {customFormText.label.agreement}
           </Checkbox>
         </Form.Item>
-        <Form.Item label="Country" name="country">
+        <Form.Item label={customFormText.label.country} name="country">
           <Select
-            style={{
-              width: "45%",
-            }}
-            placeholder="select one country"
+            placeholder={customFormText.placeholder.select}
             onChange={(value: string) =>
               countryOnChange(value, setNewEntry, newEntry)
             }
@@ -166,19 +171,19 @@ const CustomForm: React.FC = () => {
           />
         </Form.Item>
         <Form.Item
-          label="Phone"
+          label={customFormText.label.phone}
           name="phone"
           hasFeedback
           rules={getPhoneFieldRules}
         >
           <Input onChange={(e) => phoneOnChange(e, setNewEntry, newEntry)} />
         </Form.Item>
-        <Form.Item label="Details" name="details">
+        <Form.Item label={customFormText.label.details} name="details">
           <TextArea
             onChange={(e) => detalisOnChange(e, setNewEntry, newEntry)}
           />
         </Form.Item>
-        <Form.Item label="Hobbies" name="hobbies">
+        <Form.Item label={customFormText.label.hobbies} name="hobbies">
           <TextArea
             onChange={(e) => hobbiesOnChange(e, setNewEntry, newEntry)}
           />
@@ -190,16 +195,19 @@ const CustomForm: React.FC = () => {
           }}
         >
           <Space>
-            <Button type="primary" htmlType="submit">
-              Submit
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={isSubmitBtnDisabled(newEntry)}
+            >
+              {customFormText.buttonsText.submit}
             </Button>
             <Button type="default" onClick={onCancel}>
-              Cancel
+              {customFormText.buttonsText.cancel}
             </Button>
           </Space>
         </Form.Item>
       </Form>
-      ;
     </>
   );
 };

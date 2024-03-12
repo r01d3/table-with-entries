@@ -2,7 +2,7 @@ import { CustomEditForm } from "../components/organisms";
 
 const AddEntry: React.FC = () => {
   return (
-    <div>
+    <div className="custom-form">
       <CustomEditForm />
     </div>
   );

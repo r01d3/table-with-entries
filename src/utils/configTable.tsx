@@ -10,6 +10,7 @@ import {
   getPhoneFiltersOptionsValue,
   getUsernameFiltersOptionsValue,
 } from "./filters";
+import { homePageText } from "./constants";
 
 const handleDelete = (
   id: string,
@@ -65,7 +66,7 @@ const getColumns = (
       sorter: (a, b) => a.city.localeCompare(b.city),
     },
     {
-      title: "Agreement",
+      title: "Newsletter",
       dataIndex: "agreement",
       key: "agreement",
     },
@@ -102,14 +103,16 @@ const getColumns = (
       key: "actions",
       render: (_, record) => (
         <span>
-          <Link to={`/edit/${record.id}`}>Edit</Link>
+          <Link to={`/edit/${record.id}`}>
+            {homePageText.table.actions.edit}
+          </Link>
           <span style={{ margin: "0 8px" }}>|</span>
           {data.length >= 1 ? (
             <Popconfirm
               title="Sure to delete?"
               onConfirm={() => handleDelete(record.id, data, setData)}
             >
-              <a>Delete</a>
+              <a>{homePageText.table.actions.delete}</a>
             </Popconfirm>
           ) : null}
         </span>

@@ -14,7 +14,12 @@ import { useState } from "react";
 import { useAPIContext } from "../../context/APIContext";
 import { DataType } from "../../utils/types";
 import { useNavigate, useParams } from "react-router-dom";
-import { countryOptions, disabledDate } from "../../utils/constants";
+import {
+  countryOptions,
+  customFormText,
+  disabledDate,
+  isSubmitBtnDisabled,
+} from "../../utils/constants";
 import {
   configForm,
   getFirstNameFieldRules,
@@ -66,9 +71,8 @@ const CustomEditForm: React.FC = () => {
   };
   return (
     <div>
-      <HeaderForm title="Edit entry" />
+      <HeaderForm title={customFormText.title.edit + id} />
       <Form
-        className="new-entry"
         name="basic"
         {...configForm}
         onFinish={onFinish}
@@ -76,7 +80,7 @@ const CustomEditForm: React.FC = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Username"
+          label={customFormText.label.username}
           name="username"
           initialValue={updateEntry?.username}
           rules={getUsernameFieldRules}
@@ -88,7 +92,7 @@ const CustomEditForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item
-          label="FristName"
+          label={customFormText.label.firstName}
           name="firstName"
           initialValue={updateEntry?.fisrtName}
           rules={getFirstNameFieldRules}
@@ -99,7 +103,7 @@ const CustomEditForm: React.FC = () => {
           />
         </Form.Item>
         <Form.Item
-          label="LastName"
+          label={customFormText.label.lastName}
           name="lastName"
           initialValue={updateEntry?.lastName}
           rules={getLastNameFieldRules}
@@ -111,26 +115,35 @@ const CustomEditForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item label="Gender" initialValue={updateEntry?.gender}>
-          Male
-          <Switch
-            onChange={(e) =>
-              maleOnChange(e, setMale, setUpadateEntry, updateEntry)
-            }
-            disabled={female}
-            defaultValue={initalEntry?.gender === "male"}
-          />
-          Female
-          <Switch
-            onChange={(e) =>
-              femaleOnChange(e, setFemale, setUpadateEntry, updateEntry)
-            }
-            disabled={male}
-            defaultValue={initalEntry?.gender === "female"}
-          />
+          <Space>
+            {customFormText.genders.male}
+            <Switch
+              onChange={(e) =>
+                maleOnChange(e, setMale, setUpadateEntry, updateEntry)
+              }
+              disabled={female}
+              defaultValue={initalEntry?.gender === "male"}
+            />
+            {customFormText.genders.female}
+            <Switch
+              onChange={(e) =>
+                femaleOnChange(e, setFemale, setUpadateEntry, updateEntry)
+              }
+              disabled={male}
+              defaultValue={initalEntry?.gender === "female"}
+            />
+          </Space>
         </Form.Item>
 
-        <Form.Item label="Date of birth">
+        <Form.Item
+          label={customFormText.label.dateOfBirth}
+          rules={[
+            { type: "object", required: true, message: "Please select a date" },
+          ]}
+          hasFeedback
+        >
           <DatePicker
+            required
             onChange={(_: object, dataString: string) =>
               datePickerOnChange(_, dataString, setUpadateEntry, updateEntry)
             }
@@ -141,7 +154,7 @@ const CustomEditForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item
-          label="Address"
+          label={customFormText.label.address}
           name="address"
           initialValue={updateEntry?.address}
         >
@@ -149,7 +162,11 @@ const CustomEditForm: React.FC = () => {
             onChange={(e) => adressOnChange(e, setUpadateEntry, updateEntry)}
           />
         </Form.Item>
-        <Form.Item label="City" name="city" initialValue={updateEntry?.city}>
+        <Form.Item
+          label={customFormText.label.city}
+          name="city"
+          initialValue={updateEntry?.city}
+        >
           <Input
             onChange={(e) => cityOnChange(e, setUpadateEntry, updateEntry)}
           />
@@ -165,21 +182,18 @@ const CustomEditForm: React.FC = () => {
           <Checkbox
             onChange={(e) => agreementOnChnage(e, setUpadateEntry, updateEntry)}
             defaultChecked={updateEntry?.agreement === "Yes" ? true : false}
+            style={{ width: "100%" }}
           >
-            Agreement
+            {customFormText.label.agreement}
           </Checkbox>
         </Form.Item>
         <Form.Item
-          label="Country"
+          label={customFormText.label.country}
           name="country"
           initialValue={updateEntry?.country}
         >
           <Select
-            style={{
-              width: "45%",
-            }}
-            placeholder="select one country"
-            defaultValue="Select your contry"
+            placeholder={customFormText.placeholder.select}
             onChange={(value: string) =>
               countryOnChange(value, setUpadateEntry, updateEntry)
             }
@@ -189,7 +203,7 @@ const CustomEditForm: React.FC = () => {
           />
         </Form.Item>
         <Form.Item
-          label="Phone"
+          label={customFormText.label.phone}
           name="phone"
           initialValue={updateEntry?.phone}
           rules={getPhoneFieldRules}
@@ -200,7 +214,7 @@ const CustomEditForm: React.FC = () => {
           />
         </Form.Item>
         <Form.Item
-          label="Details"
+          label={customFormText.label.details}
           name="details"
           initialValue={updateEntry?.details}
         >
@@ -209,7 +223,7 @@ const CustomEditForm: React.FC = () => {
           />
         </Form.Item>
         <Form.Item
-          label="Hobbies"
+          label={customFormText.label.hobbies}
           name="hobbies"
           initialValue={updateEntry?.hobbies}
         >
@@ -224,11 +238,15 @@ const CustomEditForm: React.FC = () => {
           }}
         >
           <Space>
-            <Button type="primary" htmlType="submit">
-              Submit
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={isSubmitBtnDisabled(updateEntry)}
+            >
+              {customFormText.buttonsText.submit}
             </Button>
             <Button type="default" onClick={onCancel}>
-              Cancel
+              {customFormText.buttonsText.cancel}
             </Button>
           </Space>
         </Form.Item>

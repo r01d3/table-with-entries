@@ -1,9 +1,8 @@
 import { CustomForm } from "../components/organisms";
-import "./AddEntry.scss";
 
 const AddEntry: React.FC = () => {
   return (
-    <div>
+    <div className="custom-form">
       <CustomForm />
     </div>
   );

@@ -1,0 +1,15 @@
+/* global style */
+
+.custom-form {
+    margin: 25px auto;
+    max-width: 600px;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 20px;
+    
+    form {
+        max-width: 650px;
+        margin-top: 15px;
+        padding: 5px 90px 5px 0;
+    }
+}
