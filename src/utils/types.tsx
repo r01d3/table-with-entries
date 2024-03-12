@@ -6,7 +6,7 @@ type DataType = {
   fisrtName: string;
   lastName: string;
   gender: string;
-  dateOfBirth: string;
+  dateOfBirth: string | string[];
   address: string;
   city: string;
   agreement: string;

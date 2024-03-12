@@ -136,7 +136,7 @@ const CustomForm: React.FC = () => {
           hasFeedback
         >
           <DatePicker
-            onChange={(_: object, dataString: string) =>
+            onChange={(_: object, dataString: string | string[]) =>
               datePickerOnChange(_, dataString, setNewEntry, newEntry)
             }
             format="YYYY-MM-DD"

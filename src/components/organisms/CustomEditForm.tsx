@@ -144,11 +144,11 @@ const CustomEditForm: React.FC = () => {
         >
           <DatePicker
             required
-            onChange={(_: object, dataString: string) =>
+            onChange={(_: object, dataString: string | string[]) =>
               datePickerOnChange(_, dataString, setUpadateEntry, updateEntry)
             }
             format="YYYY-MM-DD"
-            defaultValue={dayjs(updateEntry?.dateOfBirth)}
+            defaultValue={dayjs(updateEntry?.dateOfBirth.toString())}
             disabledDate={disabledDate}
           />
         </Form.Item>
