@@ -1,7 +1,7 @@
 # Table with entries App
 
 This project displays an table with entries, 2 forms for add new entry, edit entry, and also each entry can be delete it.
-In the project was used ReatJS, React-Hooks, Typescript, SCSS, also was used Ant Design(https://ant.design/components/overview/)
+In the project was used ReactJS, React-Hooks, Typescript, SCSS, also was used Ant Design(https://ant.design/components/overview/)
 
 ## commands
 
