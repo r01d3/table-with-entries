@@ -22,10 +22,15 @@ the table will be:
 ![Alt text](image.png)
 
 the add entry form will be:
-![Alt text](image-1.png)
+
+<img width="686" alt="Screenshot 2024-03-12 at 22 57 29" src="https://github.com/r01d3/table-with-entries/assets/62386283/43eb3647-ceff-453e-92fb-ff78c0d3d386">
+
 
 the edit entry form will be:
-![Alt text](image-2.png)
+
+<img width="669" alt="Screenshot 2024-03-29 at 17 33 51" src="https://github.com/r01d3/table-with-entries/assets/62386283/46086c2b-a601-44e0-90b6-c9f44a0f96ac">
+
+
 
 ## commands
 
