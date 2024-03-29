@@ -112,7 +112,7 @@ const getColumns = (
               title="Sure to delete?"
               onConfirm={() => handleDelete(record.id, data, setData)}
             >
-              <a>{homePageText.table.actions.delete}</a>
+              <a href="/#">{homePageText.table.actions.delete}</a>
             </Popconfirm>
           ) : null}
         </span>
